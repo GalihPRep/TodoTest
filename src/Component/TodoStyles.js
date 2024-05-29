@@ -38,7 +38,7 @@ const TodoStyles = {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    margin: "16px",
+    marginBottom: "16px",
     paddingLeft: "16px",
     paddingRight: "16px",
     width: "50%",

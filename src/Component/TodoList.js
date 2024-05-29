@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TodoItem from "./TodoItem";
-import { Select } from "antd";
+import { Input, Select } from "antd";
 import TodoStyles from "./TodoStyles";
 import { CATEGORIES } from "../redux/data";
 const { Option } = Select;
@@ -10,6 +10,7 @@ const TodoList = () => {
   let todos = useSelector((state) => state.app);
   const [filterByChecked, setFilterByChecked] = useState("");
   const [filterByCategory, setFilterByCategory] = useState("");
+  const [filterByName, setFilterByName] = useState("");
 
   const handleCheckedFilterChange = (value) => {
     setFilterByChecked(value);
@@ -19,11 +20,9 @@ const TodoList = () => {
     setFilterByCategory(value);
   };
 
-  console.log(filterByChecked);
-
   return (
     <div>
-      <div className="row m-2">
+      <div className="row m-2" style={{ alignItems: "center", display: "flex", justifyContent: "space-between", margin: "16px"}}>
         <div className="col-6">
           <div>
             Status:&nbsp;
@@ -59,8 +58,20 @@ const TodoList = () => {
             </Select>
           </div>
         </div>
+        <div className="col-6">
+          <div style={{ display: "flex"}}>
+            Kata kunci:&nbsp;
+            <Input
+              type="text"
+              onChange={(event) => setFilterByName(event.target.value)}
+              value={filterByName}
+              className="col-8"
+              placeholder="Tambah tugas baru!"
+            />
+          </div>
+        </div>
       </div>
-      <div classname="my-3">
+      <div classname="my-3" style={{ alignItems: "center", display: "flex", flexDirection: "column"}}>
         {todos
           .filter((n) => {
             const matchesChecked =
@@ -69,7 +80,11 @@ const TodoList = () => {
               filterByCategory === ""
                 ? true
                 : n.category.toLowerCase() === filterByCategory;
-            return matchesChecked && matchesCategory;
+            const matchesName =
+              filterByName === ""
+                ? true
+                : n.name.toLowerCase().includes(filterByName.toLowerCase());
+            return matchesChecked && matchesCategory && matchesName;
           })
           .map((n) => (
             <TodoItem key={n.id} item={n} />
