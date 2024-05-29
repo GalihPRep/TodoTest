@@ -59,8 +59,8 @@ const TodoList = () => {
           </div>
         </div>
         <div className="col-6">
-          <div style={{ display: "flex"}}>
-            Kata kunci:&nbsp;
+          <div style={{alignItems: "center", display: "flex"}}>
+            Kata&nbsp;kunci:&nbsp;
             <Input
               type="text"
               onChange={(event) => setFilterByName(event.target.value)}
