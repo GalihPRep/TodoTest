@@ -18,14 +18,6 @@ const appReducer = (state = TODOS, action) => {
       }
       if (index !== -1) todos[index] = action.payload;
       return todos;
-    case "FILTER_TODO_SAGA":
-      return todos.filter((n) => {
-        const checked =
-          action.payload.checked === null
-            ? n.checked === n.checked
-            : n.checked === action.payload.checked;
-        return checked;
-      });
     default:
       return todos;
   }

@@ -10,8 +10,6 @@ const { Option } = Select;
 const TodoInput = () => {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
-  const [filterByChecked, setFilterByChecked] = useState(null);
-  const [filterCategory, setFilterCategory] = useState("");
   const dispatch = useDispatch();
 
   const handleCreateTodo = () => {
@@ -25,36 +23,6 @@ const TodoInput = () => {
     );
     setName("");
     setCategory("");
-  };
-
-  const handleFilterTodo = () => {
-    dispatch(
-      filterTodo({
-        checked: filterByChecked,
-        category: filterCategory,
-      })
-    );
-  };
-
-  const handleStatusFilterChange = () => {
-    const newFilterByChecked = filterByChecked === null ? false : filterByChecked === false ? true : null;
-    setFilterByChecked(newFilterByChecked);
-    dispatch(
-      filterTodo({
-        checked: newFilterByChecked,
-        category: filterCategory,
-      })
-    );
-  };
-
-  const handleCategoryFilterChange = (value) => {
-    setFilterCategory(value);
-    dispatch(
-      filterTodo({
-        checked: filterByChecked,
-        category: value,
-      })
-    );
   };
 
   return (
@@ -89,37 +57,6 @@ const TodoInput = () => {
         >
           Create
         </Button>
-      </div>
-      <div className="row m-2">
-        <div className="col-6">
-          <div>Status:&nbsp;
-            <Button
-              type="primary"
-              onClick={handleStatusFilterChange}
-              size="medium"
-            >
-              {filterByChecked === null ? 'All' : filterByChecked ? 'Checked' : 'Unchecked'}
-            </Button>
-          </div>
-        </div>
-        <div className="col-6">
-          <div>Kategori:&nbsp;
-            <Select
-              onChange={handleCategoryFilterChange}
-              value={filterCategory}
-              className="col-8"
-              style={TodoStyles.input.create}
-              placeholder="Select Category"
-            >
-              <Option value="">Semua</Option>
-              {Object.entries(CATEGORIES).map(([key, label]) => (
-                <Option key={key} value={key}>
-                  {label}
-                </Option>
-              ))}
-            </Select>
-          </div>
-        </div>
       </div>
     </>
   );

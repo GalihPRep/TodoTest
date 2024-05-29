@@ -1,6 +1,6 @@
 export const CATEGORIES = {
-    food: "Food",
-    tool: "Tool",
+    food: "food",
+    tool: "tool",
 }
 let TODOS = [
     {id: 1, name: "Cheese", category: CATEGORIES.food, checked: false},

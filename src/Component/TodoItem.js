@@ -6,10 +6,10 @@ import TodoStyles from "./TodoStyles";
 import { CATEGORIES } from "../redux/data";
 
 const TodoItem = ({ item }) => {
-  const [checked, setChecked] = useState(item.checked);
   const [updating, setUpdating] = useState(false);
   const [name, setName] = useState(item.name);
   const [category, setCategory] = useState(item.category);
+  const [checked, setChecked] = useState(item.checked);
   const dispatch = useDispatch();
   return (
     <div className="row mx-2 align-items-center" style={TodoStyles.item}>
@@ -43,13 +43,14 @@ const TodoItem = ({ item }) => {
               style={
                 checked ? TodoStyles.name.checked : TodoStyles.name.unchecked
               }
-              onClick={() => setChecked(!checked)}
+              onClick={() => {
+                dispatch(updateTodo({ ...item, checked: !checked }));
+                setChecked(!item.checked);
+              }}
             >
               {item.name}
             </p>
-            <div style={TodoStyles.category}>
-              #{item.category}
-            </div>
+            <div style={TodoStyles.category}>#{item.category}</div>
           </div>
         )}
       </div>
@@ -60,7 +61,14 @@ const TodoItem = ({ item }) => {
             if (updating) {
               setName(item.name);
               setCategory(item.category);
-              dispatch(updateTodo({ ...item, name: name, category: category }));
+              dispatch(
+                updateTodo({
+                  ...item,
+                  name: name,
+                  category: category,
+                  checked: checked,
+                })
+              );
             }
             setUpdating(!updating);
           }}
