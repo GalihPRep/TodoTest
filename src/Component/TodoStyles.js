@@ -46,6 +46,7 @@ const TodoStyles = {
   menu: {
     display: "flex",
     margin: "16px",
+    width: "50%"
   },
   name: {
     checked: {

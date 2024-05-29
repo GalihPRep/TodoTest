@@ -21,8 +21,8 @@ const TodoList = () => {
   };
 
   return (
-    <div>
-      <div className="row m-2" style={{ alignItems: "center", display: "flex", justifyContent: "space-between", margin: "16px"}}>
+    <div style={{ alignItems: "center", display: "flex", flexDirection: "column", width: "100%"}}>
+      <div className="row m-2" style={{ alignItems: "center", display: "flex", justifyContent: "space-between", margin: "16px", width: "50%"}}>
         <div className="col-6">
           <div>
             Status:&nbsp;
@@ -66,12 +66,12 @@ const TodoList = () => {
               onChange={(event) => setFilterByName(event.target.value)}
               value={filterByName}
               className="col-8"
-              placeholder="Tambah tugas baru!"
+              placeholder="Cari tugas!"
             />
           </div>
         </div>
       </div>
-      <div classname="my-3" style={{ alignItems: "center", display: "flex", flexDirection: "column"}}>
+      <div classname="my-3" style={{ alignItems: "center", display: "flex", flexDirection: "column", width: "100%"}}>
         {todos
           .filter((n) => {
             const matchesChecked =
